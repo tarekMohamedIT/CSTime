@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="CSTime:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CSTime_jar</output-path>
+    <root id="archive" name="CSTime.jar">
+      <element id="module-output" name="CSTime" />
+    </root>
+  </artifact>
+</component>

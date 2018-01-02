@@ -13,15 +13,15 @@ public class DateTime implements Comparable<DateTime>, Comparator<DateTime>, Clo
     private final String DEFAULT_DATE_SHORT_FORMAT = "dd/MM/yyyy";
     private final String DEFAULT_DATE_LONG_FORAMT = "dd '%s of %s' yyyy";
 
-    public final static String DEFAULT_DATE_TIME_12_HOUR = "dd/MM/YYYY hh:mm:ss,sss a";
-    public final static String DEFAULT_DATE_TIME_12_HOUR_NO_MILLIS = "dd/MM/YYYY hh:mm:ss a";
-    public final static String DEFAULT_DATE_TIME_24_HOUR = "dd/MM/YYYY HH:mm:ss,sss";
-    public final static String DEFAULT_DATE_TIME_24_HOUR_NO_MILLIS = "dd/MM/YYYY HH:mm:ss";
+    public final static String DEFAULT_DATE_TIME_12_HOUR = "dd/MM/yyyy hh:mm:ss,sss a";
+    public final static String DEFAULT_DATE_TIME_12_HOUR_NO_MILLIS = "dd/MM/yyyy hh:mm:ss a";
+    public final static String DEFAULT_DATE_TIME_24_HOUR = "dd/MM/yyyy HH:mm:ss,sss";
+    public final static String DEFAULT_DATE_TIME_24_HOUR_NO_MILLIS = "dd/MM/yyyy HH:mm:ss";
     public final static String DEFAULT_TIME_12_HOUR = "hh:mm:ss,sss a";
     public final static String DEFAULT_TIME_12_HOUR_NO_MILLIS = "hh:mm:ss a";
     public final static String DEFAULT_TIME_24_HOUR = "HH:mm:ss,sss";
     public final static String DEFAULT_TIME_24_HOUR_NO_MILLIS = "HH:mm:ss";
-    public final static String DEFAULT_DATE = "dd/MM/YYYY";
+    public final static String DEFAULT_DATE = "dd/MM/yyyy";
 
     private Calendar calendar;
 
