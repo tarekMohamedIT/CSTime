@@ -1,5 +1,6 @@
 package CSTime;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -10,9 +11,8 @@ import java.util.Date;
  */
 public class DateTime implements Comparable<DateTime>, Comparator<DateTime>, Cloneable {
 
-    private final String DEFAULT_DATE_SHORT_FORMAT = "dd/MM/yyyy";
-    private final String DEFAULT_DATE_LONG_FORAMT = "dd '%s of %s' yyyy";
-
+    public final static String DEFAULT_DATE_SHORT_FORMAT = "dd/MM/yyyy";
+    public final static String DEFAULT_DATE_LONG_FORMAT = "dd '%s of %s' yyyy";
     public final static String DEFAULT_DATE_TIME_12_HOUR = "dd/MM/yyyy hh:mm:ss,sss a";
     public final static String DEFAULT_DATE_TIME_12_HOUR_NO_MILLIS = "dd/MM/yyyy hh:mm:ss a";
     public final static String DEFAULT_DATE_TIME_24_HOUR = "dd/MM/yyyy HH:mm:ss,sss";
@@ -22,6 +22,7 @@ public class DateTime implements Comparable<DateTime>, Comparator<DateTime>, Clo
     public final static String DEFAULT_TIME_24_HOUR = "HH:mm:ss,sss";
     public final static String DEFAULT_TIME_24_HOUR_NO_MILLIS = "HH:mm:ss";
     public final static String DEFAULT_DATE = "dd/MM/yyyy";
+    public final static String DEFAULT_DATE_REVERSE = "yyyy/MM/dd";
 
     private Calendar calendar;
 
@@ -66,9 +67,25 @@ public class DateTime implements Comparable<DateTime>, Comparator<DateTime>, Clo
      * Constructor for the DateTime class
      * @param date the date and time in Date class instance
      */
+
     public DateTime(Date date){
         calendar = Calendar.getInstance();
         calendar.setTime(date);
+    }
+
+    /**
+     * Constructor for the DateTime class
+     *
+     * @param dateString the date and time String format
+     * @param format     The DateTime String format of the dateString
+     */
+    public DateTime(String dateString, String format) {
+        calendar = Calendar.getInstance();
+        try {
+            calendar.setTime(new SimpleDateFormat(format).parse(dateString));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -82,6 +99,15 @@ public class DateTime implements Comparable<DateTime>, Comparator<DateTime>, Clo
 
     /**
      * Constructor for the DateTime class
+     *
+     * @param calendar The calendar object to be used.
+     */
+    public DateTime(Calendar calendar) {
+        this.calendar = calendar;
+    }
+
+    /**
+     * Constructor for the DateTime class
      * @param years The years of the date
      * @param months The months of the date
      * @param daysOfMonth the day in month of the date
@@ -91,6 +117,10 @@ public class DateTime implements Comparable<DateTime>, Comparator<DateTime>, Clo
         this.calendar.set(Calendar.YEAR, years);
         this.calendar.set(Calendar.MONTH, months - 1);
         this.calendar.set(Calendar.DAY_OF_MONTH, daysOfMonth);
+        this.calendar.set(Calendar.HOUR_OF_DAY, 0);
+        this.calendar.set(Calendar.MINUTE, 0);
+        this.calendar.set(Calendar.SECOND, 0);
+        this.calendar.set(Calendar.MILLISECOND, 0);
     }
 
     /**
@@ -110,6 +140,7 @@ public class DateTime implements Comparable<DateTime>, Comparator<DateTime>, Clo
         this.calendar.set(Calendar.HOUR_OF_DAY, hours24);
         this.calendar.set(Calendar.MINUTE, minutes);
         this.calendar.set(Calendar.SECOND, seconds);
+        this.calendar.set(Calendar.MILLISECOND, 0);
     }
 
     /**
@@ -308,7 +339,7 @@ public class DateTime implements Comparable<DateTime>, Comparator<DateTime>, Clo
                 post = "rd";
                 break;
         }
-        return String.format(new SimpleDateFormat(DEFAULT_DATE_LONG_FORAMT).format(calendar.getTime())
+        return String.format(new SimpleDateFormat(DEFAULT_DATE_LONG_FORMAT).format(calendar.getTime())
                 ,post
                 ,getMonthName());
     }
@@ -325,6 +356,16 @@ public class DateTime implements Comparable<DateTime>, Comparator<DateTime>, Clo
         else if (hasMillis && !is24Hours) return new SimpleDateFormat(DEFAULT_DATE_TIME_12_HOUR).format(calendar.getTime());
         else return new SimpleDateFormat(DEFAULT_DATE_TIME_12_HOUR_NO_MILLIS).format(calendar.getTime());
 
+    }
+
+    /**
+     * A method used to get a formatted String of the date and time
+     *
+     * @param format The format required
+     * @return a string representation of the date and time
+     */
+    public String getDateTime(String format) {
+        return new SimpleDateFormat(format).format(calendar.getTime());
     }
 
     /**
